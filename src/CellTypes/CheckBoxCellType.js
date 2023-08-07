@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM, { unmountComponentAtNode } from "react-dom";
 
 
 import Handsontable from "handsontable";
@@ -14,18 +14,8 @@ export const CheckBoxRenderer = (
   value,
   cellProperties
 ) => {
-    console.log("lisst",cellProperties.listCheckBox)
-    const elementSelected = []
-    cellProperties.listCheckBox.forEach(element => {
-        console.log("element Select",element.isSelected)
-        if(element.isSelected === true) {
-            elementSelected.push(element)
-        }
-    });
-    console.log("elementSelect",elementSelected)
-    ReactDOM.render(<div>
-        {elementSelected.map((element => {
-            console.log("aaaaa");
+    ReactDOM.render(<div className="123123">
+        {value.map((element => {
             return (
                 <span>{element.label}</span>
             );
@@ -45,7 +35,7 @@ export class CheckBoxEditor extends Handsontable.editors.BaseEditor {
     }
 
     getValue() {
-        return this.checkBox.value;
+        return this.value;
       }
       
       setValue(value) {
@@ -79,21 +69,33 @@ export class CheckBoxEditor extends Handsontable.editors.BaseEditor {
         selectStyle.background = 'white'
         // selectStyle.overflow = 'hidden'
         const {row, col} = this.cellProperties
-        
+        const options = this.cellProperties.listCheckBox
+        console.log('options', options);
+        console.log('this.hot.getDataAtCell(row, col)', this.hot.getDataAtCell(row, col));
+        this.value = this.hot.getDataAtCell(row, col);
   
         const handleChangeCheckBox =  (event) => {
-            console.log("element",event.target.value)
-            
-            // this.cellProperties.listCheckBox.forEach
+            const value = event.target.value;
+
+            const index = this.value.findIndex(item => item.id === +value)
+            if (index < 0) {
+              this.value.push(this.cellProperties.listCheckBox.find((item) => item.id === +value))
+            } else {
+              this.value.splice(index, 1);
+            }
         }
        
   
         ReactDOM.render(
           <div style={{border:"1px solid blue"}}>
             {this.cellProperties.listCheckBox.map((element) => {
-                return (
-                    <Checkbox label={element.label} value={element.value} isChecked={element.isSelected} onChange={handleChangeCheckBox}/>
-                )
+                if (this.hot.getDataAtCell(row, col).find(item => item.id === element.id)) {
+                  return (
+                      <Checkbox label={element.label} value={element.id} defaultChecked={true} onChange={handleChangeCheckBox}/>
+                  )
+                }
+                
+                return <Checkbox label={element.label} value={element.id} defaultChecked={false} onChange={handleChangeCheckBox}/>
                 
             })}
           </div>

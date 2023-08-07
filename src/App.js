@@ -8,7 +8,7 @@ import { StatusRenderer } from "./CellTypes/StatusCellType";
 import { StatusEditor } from "./CellTypes/StatusCellType";
 import { ImageRenderer } from "./CellTypes/ImageCellType";
 import { CheckBoxEditor, CheckBoxRenderer } from "./CellTypes/CheckBoxCellType";
-import { EditorRenderer } from "./CellTypes/EditorCoreCelltype";
+// import { EditorRenderer } from "./CellTypes/EditorCoreCelltype";
 
 
 registerAllModules();
@@ -32,7 +32,7 @@ function App() {
       },
       date: "1/04/2023",
       image: "https://d27jswm5an3efw.cloudfront.net/app/uploads/2019/07/insert-image-html.jpg",
-      checkbox: {label:"Done" , value:"done" , isSelected : true },
+      checkbox: [{id: 1, label:"Done" , value:"done" , isSelected : true }],
       description : "No Comment in here"
     },
 
@@ -54,7 +54,7 @@ function App() {
       date: "02/04/2023",
       image: "https://d27jswm5an3efw.cloudfront.net/app/uploads/2019/07/insert-image-html.jpg",
       checkbox: 
-        {label:"In progress" , value:"inprogress" , isSelected : true },
+        [{id: 2, label:"In progress" , value:"inprogress" , isSelected : true }],
         description : "In Progress no dev "
       
 
@@ -77,7 +77,7 @@ function App() {
       },
       date: "03/04/2023",
       image: "https://d27jswm5an3efw.cloudfront.net/app/uploads/2019/07/insert-image-html.jpg",
-      checkbox: {label:"Todo" , value:"todo" , isSelected : false },
+      checkbox: [{id: 3, label:"Todo" , value:"todo" , isSelected : false }],
       description : "huhuhhihihihihhuhuhhihih"
 
       ,
@@ -85,7 +85,7 @@ function App() {
   ];
 
   const listSelectOPtion = dataSource.map((item) => item.status)
-  const listCheckBox = dataSource.map((item) => item.checkbox)
+  const listCheckBox = dataSource.map((item) => item.checkbox[0])
 
 
   // const data = [
@@ -126,10 +126,10 @@ function App() {
             listCheckBox : listCheckBox,
             editor : CheckBoxEditor
           },
-          {
-            data : "description",
-            renderer: EditorRenderer , 
-          }
+          // {
+          //   data : "description",
+          //   renderer: EditorRenderer , 
+          // }
 
         ]}
         licenseKey="non-commercial-and-evaluation"
