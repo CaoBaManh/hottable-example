@@ -1,0 +1,53 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@atlaskit/button": "^16.8.5",
+    "@atlaskit/checkbox": "^12.6.7",
+    "@atlaskit/css-reset": "^6.0.1",
+    "@atlaskit/dropdown-menu": "^11.11.2",
+    "@atlaskit/editor-core": "^184.0.0",
+    "@atlaskit/image": "^1.1.5",
+    "@atlaskit/link-provider": "^1.6.3",
+    "@atlaskit/lozenge": "^11.4.3",
+    "@atlaskit/media-core": "^34.1.2",
+    "@atlaskit/modal-dialog": "^12.6.5",
+    "@atlaskit/select": "^16.5.7",
+    "@atlaskit/tooltip": "^17.8.4",
+    "@handsontable/react": "^13.0.0",
+    "adf-builder": "^3.3.0",
+    "cra-template": "1.2.0",
+    "handsontable": "^13.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-intl": "^2.8.0",
+    "react-intl-next": "npm:react-intl@^5.25.1",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.3.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+.custom-select {
+    height: 100%;
+}
+.custom-select .react-select__menu .react-select__menu-list {
+    overflow: hidden;
+}
+.custom-select .react-select__control {
+    min-height: 100%;
+    height: 100%;
+    box-sizing: border-box !important; 
+}
+
+.custom-select .react-select__control .react-select__value-container ,
+.custom-select .react-select__control .react-select__indicators  {
+    padding: 0;
+    height: 100%;
+}
+
+.custom-select .react-select__single-value {
+    text-align: left;
+}
+
+.custom-select .react-select__menu {
+    margin: 0px;
+}
+
+
+.custom-select .react-select__menu .react-select__menu-list .react-select__option {
+    display: flex;
+    width: inherit;
+    padding: 5px;
+}
+
