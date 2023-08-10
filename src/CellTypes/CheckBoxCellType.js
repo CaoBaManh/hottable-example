@@ -73,6 +73,7 @@ export class CheckBoxEditor extends Handsontable.editors.BaseEditor {
         console.log('options', options);
         console.log('this.hot.getDataAtCell(row, col)', this.hot.getDataAtCell(row, col));
         this.value = this.hot.getDataAtCell(row, col);
+        console.log("this.value",this.value)
   
         const handleChangeCheckBox =  (event) => {
             const value = event.target.value;
@@ -84,12 +85,12 @@ export class CheckBoxEditor extends Handsontable.editors.BaseEditor {
               this.value.splice(index, 1);
             }
         }
-       
   
         ReactDOM.render(
           <div style={{border:"1px solid blue"}}>
             {this.cellProperties.listCheckBox.map((element) => {
                 if (this.hot.getDataAtCell(row, col).find(item => item.id === element.id)) {
+                  console.log("aaâ",element)
                   return (
                       <Checkbox label={element.label} value={element.id} defaultChecked={true} onChange={handleChangeCheckBox}/>
                   )
@@ -109,5 +110,7 @@ export class CheckBoxEditor extends Handsontable.editors.BaseEditor {
       close() {
         this._opened = false;
         this.checkBox.style.display = 'none';
+        unmountComponentAtNode(this.checkBox)
+
       }
  }

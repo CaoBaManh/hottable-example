@@ -22,15 +22,12 @@ export const ImageRenderer = (
   console.log(prop);
   const ImageComponent = () => {
     const [isOpen, setIsOpen] = useState(false);
-
-    console.log("va;ue",value)
-
-
+     
     return (
       <div
         
       >
-        <Image src={value} alt="Simple example" testId="image" onClick={() => setIsOpen(true)}></Image>
+        <Image src={value.iconUrl} alt="Simple example" testId="image" onClick={() => setIsOpen(true)}></Image>
         <ModalTransition>
         {isOpen && (
           <Modal onClose={() => setIsOpen(false)}>
@@ -38,7 +35,7 @@ export const ImageRenderer = (
               <ModalTitle>Image Preview</ModalTitle>
             </ModalHeader>
             <ModalBody>
-                <Image src={value} alt="Simple example" testId="image"></Image>
+                <Image src={value.iconUrl} alt="Simple example" testId="image"></Image>
             </ModalBody>
             <ModalFooter>
                 <Button onClick={() => {
