@@ -8,25 +8,27 @@ import Lozenge from "@atlaskit/lozenge";
 import '../StatusCellType.css'
 
 export const StatusRenderer = (instance, td, row, col, prop, value, cellProperties) => {
+   
     const temp = document.createElement('div');
     temp.style.display = 'flex'
-    if (value.name === "Done") {
+    // console.log("value status",value)
+    if (value === "Done") {
       td.style.padding = "4px";
-      ReactDOM.render(<Tooltip content = {value.statusCategory.name}>
-        <Lozenge appearance="success">{value.statusCategory.name}</Lozenge>
+      ReactDOM.render(<Tooltip content = {value}>
+        <Lozenge appearance="success">{value}</Lozenge>
         </Tooltip>,temp)
     }
-    if (value.name === "To Do") {
+    if (value === "To Do") {
       td.style.padding = "4px";
-      ReactDOM.render(<Tooltip content = {value.statusCategory.name}>
-        <Lozenge appearance="default">{value.statusCategory.name}</Lozenge>
+      ReactDOM.render(<Tooltip content = {value}>
+        <Lozenge appearance="default">{value}</Lozenge>
         </Tooltip>,temp)
     }
 
-    if (value.name === "In Progress edit") {
+    if (value === "In Progress") {
       td.style.padding = "4px";
-      ReactDOM.render(<Tooltip content = {value.statusCategory.name}>
-        <Lozenge appearance="inprogress">{value.statusCategory.name}</Lozenge>
+      ReactDOM.render(<Tooltip content = {value}>
+        <Lozenge appearance="inprogress">{value}</Lozenge>
         </Tooltip>,temp)
     }
     td.replaceChildren(temp);
@@ -47,6 +49,7 @@ export class StatusEditor extends Handsontable.editors.BaseEditor {
     }
     
     setValue(value) {
+      console.log("value",value)
       this.select.value = value;
     }
     
@@ -57,13 +60,9 @@ export class StatusEditor extends Handsontable.editors.BaseEditor {
         width,
         height,
       } = this.getEditedCellRect();
-      console.log("top",top)
-      console.log("start",start)
-      console.log("width",width)
-      console.log("height",height)
+    
 
       const selectStyle = this.select.style;
-      console.log("this.select",this.select)
       this._opened = true;
     
       selectStyle.minHeight = `${height}px`;
@@ -73,14 +72,16 @@ export class StatusEditor extends Handsontable.editors.BaseEditor {
       selectStyle[this.hot.isRtl() ? 'right' : 'left'] = `${start}px`;
       selectStyle.margin = '0px';
       selectStyle.display = '';
+      selectStyle.zIndex = 1000
       // selectStyle.overflow = 'hidden'
       const {row, col} = this.cellProperties
       const options = this.cellProperties.selectOptions.map((option) => {
         return { label: option.statusCategory.name, value: option.statusCategory.id ,hideData : option }
       })
-      const defaultValue = options.find((option) => option.value === this.hot.getDataAtCell(row, col).statusCategory.id)
-      console.log(defaultValue)
-
+      const defaultValue = options.find((option) => option.value === this.hot.getDataAtCell(row, col))
+      
+      // const value2 =instance.getCellMeta(0,0)
+      console.log("vakue",this.hot.getCellMeta(row,col))
       
       const formatOptionStatus = (option) => {
         return (
@@ -109,8 +110,9 @@ export class StatusEditor extends Handsontable.editors.BaseEditor {
             menuIsOpen
             value={defaultValue}
             onChange={(e) => {
+              console.log("e",e)
                 this.setValue(e); 
-                this.hot.setDataAtCell(this.row,this.col,this.select.value.hideData)
+                this.hot.setDataAtCell(this.row,this.col,this.select.value.label)
                 this.close();
             }}
         />, this.select)
